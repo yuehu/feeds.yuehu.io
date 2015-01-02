@@ -3,7 +3,6 @@
 import os
 import sys
 import json
-import random
 import logging
 import datetime
 from multiprocessing import Pool
@@ -72,12 +71,17 @@ def parse_daily(filtered=True):
 
 def main(filtered=True):
     pool = Pool(processes=4)
-    rv = []
-    rv.append(pool.map_async(fetch, parse_weixin(filtered)))
-    rv.append(pool.map_async(fetch, parse_zhuanlan(filtered)))
-    rv.append(pool.map_async(fetch, parse_daily(filtered)))
-    for result in rv:
-        result.wait()
+
+    def things():
+        for item in parse_weixin(filtered):
+            yield item
+        for item in parse_zhuanlan(filtered):
+            yield item
+        for item in parse_daily(filtered):
+            yield item
+
+    rv = pool.map_async(fetch, things())
+    rv.wait()
 
 
 if __name__ == '__main__':
