@@ -1,1 +1,1 @@
-burglar
+-e git+https://github.com/lepture/burglar.git#egg=burglar
