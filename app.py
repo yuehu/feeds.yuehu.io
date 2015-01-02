@@ -3,8 +3,10 @@
 import os
 import sys
 import json
+import random
 import logging
 import datetime
+from multiprocessing import Pool
 from burglar import Burglar, logger
 
 # set timezone
@@ -25,56 +27,58 @@ handler.setFormatter(formatter)
 logger.addHandler(handler)
 logger.setLevel(logging.DEBUG)
 
-# init burglar
-fetch = Burglar(public)
-
 logger.info('Cron job - %s' % stamp)
+
+
+fetch = Burglar(public)
 
 
 def parse_weixin(filtered=True):
     with open(os.path.join(public, 'weixin.json')) as f:
         data = json.load(f)
 
+    keys = data.keys()
     if filtered:
-        keys = list(filter(lambda o: stamp in o['time'], data))
-    else:
-        keys = data.keys()
+        keys = list(filter(lambda k: stamp in data[k]['time'], keys))
 
     for key in keys:
         item = data[key]
         item['type'] = 'weixin'
         item['name'] = key
-        fetch(item)
+        yield item
 
 
 def parse_zhuanlan(filtered=True):
     with open(os.path.join(public, 'zhuanlan.json')) as f:
         data = json.load(f)
 
+    keys = data.keys()
     if filtered:
-        keys = list(filter(lambda o: stamp in o['time'], data))
-    else:
-        keys = data.keys()
+        keys = list(filter(lambda k: stamp in data[k]['time'], keys))
 
     for key in keys:
         item = data[key]
         item['type'] = 'zhuanlan'
         item['name'] = key
-        fetch(item)
+        yield item
 
 
 def parse_daily(filtered=True):
     valid = ['8:00', '10:00', '12:00', '16:00', '20:00', '24:00']
     if filtered and stamp not in valid:
         return
-    fetch({'type': 'daily'})
+    yield {'type': 'daily'}
+
+
+def main(filtered=True):
+    pool = Pool(processes=4)
+    rv = []
+    rv.append(pool.map_async(fetch, parse_weixin(filtered)))
+    rv.append(pool.map_async(fetch, parse_zhuanlan(filtered)))
+    rv.append(pool.map_async(fetch, parse_daily(filtered)))
+    for result in rv:
+        result.wait()
 
 
 if __name__ == '__main__':
-    if '--init' in sys.argv:
-        filtered = False
-    else:
-        filtered = True
-    parse_weixin(filtered)
-    parse_zhuanlan(filtered)
-    parse_daily(filtered)
+    main('--init' not in sys.argv)
