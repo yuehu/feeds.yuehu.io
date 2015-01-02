@@ -18,5 +18,6 @@ cover/
 *.so
 *.xml
 *.log
+*.conf
 venv/
 logs/
