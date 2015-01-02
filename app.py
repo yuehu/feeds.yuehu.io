@@ -3,6 +3,7 @@
 import os
 # set timezone
 os.environ['TZ'] = 'Asia/Shanghai'
+import sys
 import json
 import logging
 import datetime
@@ -27,11 +28,15 @@ logger.setLevel(logging.INFO)
 fetch = Burglar(public)
 
 
-def parse_weixin():
+def parse_weixin(filtered=True):
     with open(os.path.join(public, 'weixin.json')) as f:
         data = json.load(f)
 
-    keys = list(filter(lambda o: stamp in o['time'], data))
+    if filtered:
+        keys = list(filter(lambda o: stamp in o['time'], data))
+    else:
+        keys = data.keys()
+
     for key in keys:
         item = data[key]
         item['type'] = 'weixin'
@@ -39,11 +44,15 @@ def parse_weixin():
         fetch(item)
 
 
-def parse_zhuanlan():
+def parse_zhuanlan(filtered=True):
     with open(os.path.join(public, 'zhuanlan.json')) as f:
         data = json.load(f)
 
-    keys = list(filter(lambda o: stamp in o['time'], data))
+    if filtered:
+        keys = list(filter(lambda o: stamp in o['time'], data))
+    else:
+        keys = data.keys()
+
     for key in keys:
         item = data[key]
         item['type'] = 'zhuanlan'
@@ -51,13 +60,18 @@ def parse_zhuanlan():
         fetch(item)
 
 
-def parse_daily():
-    if stamp not in ['8:00', '10:00', '12:00', '16:00', '20:00', '24:00']:
+def parse_daily(filtered=True):
+    valid = ['8:00', '10:00', '12:00', '16:00', '20:00', '24:00']
+    if filtered and stamp not in valid:
         return
     fetch({'type': 'daily'})
 
 
 if __name__ == '__main__':
-    parse_weixin()
-    parse_zhuanlan()
-    parse_daily()
+    if '--init' in sys.argv:
+        filtered = False
+    else:
+        filtered = True
+    parse_weixin(filtered)
+    parse_zhuanlan(filtered)
+    parse_daily(filtered)
