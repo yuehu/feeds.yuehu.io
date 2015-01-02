@@ -4,17 +4,27 @@ import os
 # set timezone
 os.environ['TZ'] = 'Asia/Shanghai'
 import json
+import logging
 import datetime
+from burglar import Burglar, logger
+
 now = datetime.datetime.now()
 stamp = now.strftime('%H:%M')
 
 rootdir = os.path.abspath(os.path.dirname(__file__))
 public = os.path.join(rootdir, 'public')
 
+# setting logging
+formatter = logging.Formatter(
+    '[%(asctime)s %(levelname)s %(filename)s:%(lineno)d]: %(message)s'
+)
+handler = logging.StreamHandler()
+handler.setFormatter(formatter)
+logger.addHandler(handler)
+logger.setLevel(logging.INFO)
 
-def fetch(item):
-    from burglar import Burglar
-    Burglar(public)(item)
+# init burglar
+fetch = Burglar(public)
 
 
 def parse_weixin():
