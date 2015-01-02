@@ -9,5 +9,11 @@
     "title": "人物",
     "openid": "oIWsFt4Y85rkQAoX0MIiuKuf6Tqk",
     "time": ["11:00", "20:00"]
+  },
+  "yidu": {
+    "title": "壹读",
+    "openid": "oIWsFtw2V9YRrYiR3gx7crd2XHmo",
+    "url": "http://yidu.im/",
+    "time": ["9:30", "14:00", "22:30"]
   }
 }
