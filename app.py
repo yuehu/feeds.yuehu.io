@@ -1,13 +1,17 @@
 # coding: utf-8
 
 import os
-# set timezone
-os.environ['TZ'] = 'Asia/Shanghai'
 import sys
 import json
 import logging
 import datetime
 from burglar import Burglar, logger
+
+# set timezone
+os.environ['TZ'] = 'Asia/Shanghai'
+now = datetime.datetime.now()
+stamp = now.strftime('%H:%M')
+os.environ['TZ'] = 'UTC'
 
 rootdir = os.path.abspath(os.path.dirname(__file__))
 public = os.path.join(rootdir, 'public')
@@ -19,13 +23,10 @@ formatter = logging.Formatter(
 handler = logging.StreamHandler()
 handler.setFormatter(formatter)
 logger.addHandler(handler)
-logger.setLevel(logging.INFO)
+logger.setLevel(logging.DEBUG)
 
 # init burglar
 fetch = Burglar(public)
-
-now = datetime.datetime.now()
-stamp = now.strftime('%H:%M')
 
 logger.info('Cron job - %s' % stamp)
 
