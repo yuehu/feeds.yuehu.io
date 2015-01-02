@@ -17,4 +17,6 @@ cover/
 *.c
 *.so
 *.xml
+*.log
 venv/
+logs/
