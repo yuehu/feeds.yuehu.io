@@ -9,9 +9,6 @@ import logging
 import datetime
 from burglar import Burglar, logger
 
-now = datetime.datetime.now()
-stamp = now.strftime('%H:%M')
-
 rootdir = os.path.abspath(os.path.dirname(__file__))
 public = os.path.join(rootdir, 'public')
 
@@ -26,6 +23,11 @@ logger.setLevel(logging.INFO)
 
 # init burglar
 fetch = Burglar(public)
+
+now = datetime.datetime.now()
+stamp = now.strftime('%H:%M')
+
+logger.info('Cron job - %s' % stamp)
 
 
 def parse_weixin(filtered=True):

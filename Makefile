@@ -1,5 +1,5 @@
 virtualenv:
 	@virtualenv venv
 
-build:
-	@venv/bin/python app.py
+init:
+	@venv/bin/python app.py --init
