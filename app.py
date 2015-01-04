@@ -48,7 +48,7 @@ def parse_weixin(filtered=True):
 
 
 def parse_zhuanlan(filtered=True):
-    with open(os.path.join(public, 'zhuanlan.json')) as f:
+    with open(os.path.join(public, 'zhihu.json')) as f:
         data = json.load(f)
 
     keys = data.keys()
