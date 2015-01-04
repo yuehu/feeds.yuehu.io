@@ -1,0 +1,38 @@
+body {
+  margin: 0;
+  padding: 0;
+}
+.brand {
+  display: block;
+  padding: 30px 80px;
+  color: white;
+  color: rgba(255,255,255,0.98);
+  background-color: #212122;
+  text-decoration: none;
+}
+.brand h1 {
+  font: normal 100 42px/1.6 "Helvetica Neue", "Helvetica", sans-serif;
+  text-transform: uppercase;
+  margin: 0;
+  letter-spacing: .1em;
+}
+a.item {
+  display: block;
+  padding: 30px 80px;
+  font: normal 100 26px/1.6 "Helvetica Neue", "Helvetica", sans-serif;
+  color: white;
+  color: rgba(255,255,255,0.98);
+  text-decoration: none;
+}
+a.item:hover {
+  opacity: 0.7;
+}
+.item h3 {
+  margin: 0;
+  font: normal 100 32px/1.2 "Hiragino Sans GB", sans-serif;
+  letter-spacing: .08em;
+}
+.item p {
+  margin: 0;
+  word-wrap: break-word;
+}
