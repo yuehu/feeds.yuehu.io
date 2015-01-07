@@ -1,6 +1,7 @@
 body {
   margin: 0;
   padding: 0;
+  -webkit-font-smoothing: antialiased;
 }
 .brand {
   display: block;
@@ -16,6 +17,10 @@ body {
   margin: 0;
   letter-spacing: .1em;
 }
+.brand p {
+  margin: 0;
+  font: normal 100 24px/1.4 "Xin Gothic", "Hiragino Sans GB", "Droid Sans Fallback", "Microsoft YaHei", sans-serif;
+}
 a.item {
   display: block;
   padding: 30px 80px;
@@ -29,7 +34,7 @@ a.item:hover {
 }
 .item h3 {
   margin: 0;
-  font: normal 100 32px/1.2 "Hiragino Sans GB", sans-serif;
+  font: normal 100 32px/1.2 "Xin Gothic", "Hiragino Sans GB", "Droid Sans Fallback", "Microsoft YaHei", sans-serif;
   letter-spacing: .08em;
 }
 .item p {
