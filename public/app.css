@@ -21,6 +21,14 @@ body {
   margin: 0;
   font: normal 100 24px/1.4 "Xin Gothic", "Hiragino Sans GB", "Droid Sans Fallback", "Microsoft YaHei", sans-serif;
 }
+.brand .github {
+  color: white;
+  font-weight: 500;
+  text-decoration: none;
+}
+.brand .github:hover {
+  opacity: 0.6;
+}
 a.item {
   display: block;
   padding: 30px 80px;
@@ -40,4 +48,10 @@ a.item:hover {
 .item p {
   margin: 0;
   word-wrap: break-word;
+}
+@media (max-width: 680px) {
+  .brand, a.item {
+    padding-left: 14px;
+    padding-right: 14px;
+  }
 }
