@@ -26,11 +26,6 @@ handler.setFormatter(formatter)
 logger.addHandler(handler)
 logger.setLevel(logging.DEBUG)
 
-logger.info('Cron job - %s' % stamp)
-
-
-fetch = Burglar(public)
-
 
 def parse_weixin(filtered=True):
     with open(os.path.join(public, 'weixin.json')) as f:
@@ -70,6 +65,7 @@ def parse_daily(filtered=True):
 
 
 def main(filtered=True):
+    logger.info('Start job - %s' % stamp)
     pool = Pool(processes=4)
 
     def things():
@@ -80,8 +76,14 @@ def main(filtered=True):
         for item in parse_daily(filtered):
             yield item
 
-    rv = pool.map_async(fetch, things())
+    use_cache = True
+
+    if filtered is not True or now.hour > 22:
+        use_cache = False
+
+    rv = pool.map_async(Burglar(public, use_cache), things())
     rv.wait()
+    logger.info('End - cache: %s' % use_cache)
 
 
 if __name__ == '__main__':
