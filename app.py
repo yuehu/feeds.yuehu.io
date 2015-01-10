@@ -78,7 +78,7 @@ def main(filtered=True):
 
     use_cache = True
 
-    if filtered is not True or now.hour > 22:
+    if filtered is not True or now.hour > 22 or now.hour < 5:
         use_cache = False
 
     rv = pool.map_async(Burglar(public, use_cache), things())
