@@ -15,5 +15,11 @@
     "openid": "oIWsFtw2V9YRrYiR3gx7crd2XHmo",
     "url": "http://yidu.im/",
     "time": ["9:30", "14:00", "22:30"]
+  },
+  "virushuo": {
+    "title": "歪理邪说",
+    "openid": "oIWsFt3qoq0iKzqXrPeKhIujXtow",
+    "url": "http://blog.devep.net/virushuo/",
+    "time": ["10:00", "22:00"]
   }
 }
