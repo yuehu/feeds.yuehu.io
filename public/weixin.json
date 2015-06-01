@@ -27,5 +27,11 @@
     "openid": "oIWsFt-F95xcnWlUw2HLx0dqmArM",
     "url": "http://www.luanxiang.org/",
     "time": ["9:00", "21:00"]
+  },
+  "shanghaishuping": {
+    "title": "上海书评",
+    "openid": "oIWsFtyEc7B9Ul9g8f0xoPsi658Y",
+    "url": "http://www.dfdaily.com/",
+    "time": ["8:00", "10:00", "21:00"]
   }
 }
